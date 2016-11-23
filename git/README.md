@@ -1,11 +1,11 @@
 # Git resources
 
-[Branching model](/branching-model.md)
+[Branching model](git/branching-model.md)
 
-[Changing remote url](/changing-remote-url.md)
+[Changing remote url](git/changing-remote-url.md)
 
-[Commit messages](/commit-messages.md)
+[Commit messages](git/commit-messages.md)
 
-[Ignore changes to a file](/ignore-changes.md)
+[Ignore changes to a file](git/ignore-changes.md)
 
-[gitignore](/gitignore)
+[gitignore](git/gitignore)

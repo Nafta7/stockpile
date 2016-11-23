@@ -57,12 +57,13 @@ shepard instanceof Javascripter //truer
 
 ## 3. PROTOTYPAL INHERITANCE
 
+```js
 if (typeof Object.create !== "function"){
     Object.create = function(o){
-        var F = function(){}; // rofl jQuery.noop()
-        F.prototype = o;
-        return new F();
-    };
+        var F = function(){} // rofl jQuery.noop()
+        F.prototype = o
+        return new F()
+    }
 }
 
 // Object literal means a usable person
@@ -70,15 +71,16 @@ var actualPerson = {
     name: "JohnDoe",
     gender: "Unisex",
     sayHi: function(){
-        alert(this.name + " is a " + this.gender);
+        alert(this.name + " is a " + this.gender)
     }
 };
 
 // make a clone
-var shepard = Object.create(actualPerson);
+var shepard = Object.create(actualPerson)
 // then describe the differences
-shepard.name = "Shepard";
-shepard.gender = "Superman";
+shepard.name = "Shepard"
+shepard.gender = "Superman"
+```
 
 Taken from:
 http://www.slideshare.net/SlexAxton/how-to-manage-large-jquery-apps

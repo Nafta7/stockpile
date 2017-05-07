@@ -26,3 +26,20 @@ theFunction.call(undefined, "Claude", "mathematician");
 ```
 
 Taken from: http://stackoverflow.com/a/1986909
+
+
+# Promises, pass additional parameters to then chain
+
+You can use Function.prototype.bind to create a new function with a value passed to its first argument, like this:
+
+```js
+P.then(doWork.bind(null, 'text'))
+
+function doWork(text, data) {
+  consoleToLog(data);
+}
+```
+
+Now, text will be actually 'text' in doWork and data will be the value resolved by the Promise.
+
+Source: http://stackoverflow.com/a/32912570/6598709

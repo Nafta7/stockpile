@@ -1,86 +1,55 @@
-# Inheritance Model
-
-## 1. NATIVE/PSEUDO-CLASSICAL
+# Classical inheritance
 
 ```js
-// Constructor function
-var Person = new function(name, gender){
-    // Instance level variable
-    this.name = name
-    this.gender = gender
-}
-```
-
-```js
-// Inherited properties
-Person.prototype.sayHi = function(){
-    alert("Hi I'm " + this.name + ", and I'm a" this.gender)
+function Foo(who) {
+    this.me = who;
 }
 
-var shepard = new Person("Shepard", "robot")
-shepard.sayHi()
+Foo.prototype.identify = function() {
+    return "I am " + this.me;
+};
+
+function Bar(who) {
+    Foo.call(this,who);
+}
+
+Bar.prototype = Object.create(Foo.prototype);
+// NOTE: .constructor is borked here, need to fix
+
+Bar.prototype.speak = function() {
+    alert("Hello, " + this.identify() + ".");
+};
+
+var b1 = new Bar("b1");
+var b2 = new Bar("b2");
+
+b1.speak(); // alerts: "Hello, I am b1."
+b2.speak(); // alerts: "Hello, I am b2."
 ```
 
-
-## 2. CLASSICAL INHERITANCE
+# Prototipal inheritance
 
 ```js
-//  Base class
-var Person = Class.extend({
-    // Constructor
-    init: function(name, gender){
-        this.name   = name
-        this.gender = gender
-   },
-   sayHi: function(){
-       alert("I'm person: " + this.name)
-   }
-})
-
-// Inherited class
-var Javascripter = Person.extend({
-    init: function(name, gender){
-        // Call to parent
-        this._super(name, gender)
-        this.hatesJava = true
+var Foo = {
+    init: function(who) {
+        this.me = who;
     },
-    // Function override
-    sayHi: function(){
-        alert("OMG I'm: " + this.name)
-    }
-})
-
-var shepard = new Javascripter("Shepard", "Megaman")
-shepard istanceof Person //true
-shepard instanceof Javascripter //truer
-```
-
-## 3. PROTOTYPAL INHERITANCE
-
-```js
-if (typeof Object.create !== "function"){
-    Object.create = function(o){
-        var F = function(){} // rofl jQuery.noop()
-        F.prototype = o
-        return new F()
-    }
-}
-
-// Object literal means a usable person
-var actualPerson = {
-    name: "JohnDoe",
-    gender: "Unisex",
-    sayHi: function(){
-        alert(this.name + " is a " + this.gender)
+    identify: function() {
+        return "I am " + this.me;
     }
 };
 
-// make a clone
-var shepard = Object.create(actualPerson)
-// then describe the differences
-shepard.name = "Shepard"
-shepard.gender = "Superman"
-```
+var Bar = Object.create(Foo);
 
-Taken from:
-http://www.slideshare.net/SlexAxton/how-to-manage-large-jquery-apps
+Bar.speak = function() {
+    alert("Hello, " + this.identify() + ".");
+};
+
+var b1 = Object.create(Bar);
+b1.init("b1");
+var b2 = Object.create(Bar);
+b2.init("b2");
+
+b1.speak(); // alerts: "Hello, I am b1."
+b2.speak(); // alerts: "Hello, I am b2."
+```
